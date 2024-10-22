@@ -1,7 +1,0 @@
-# railway.toml
-[build]
-builder = "bun"
-
-[env]
-NODE_ENV = "production"
-PORT = 500

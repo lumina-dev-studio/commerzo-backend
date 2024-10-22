@@ -1,0 +1,11 @@
+{
+    "build": {
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "start": {
+      "command": "bun run start"
+    }
+  }
+  
