@@ -26,7 +26,7 @@ const CreateUsersDB = async (payload: any) => {
     
     const prismaError=  prismaErrorHandler(error)
     throw new Error(prismaError?.message)
-    // Handle errors (e.g., log them, rethrow them, or return a structured error response)
+    
     // console.error('Error creating user:', error); // Log the error
     // throw new Error('Failed to create user.'); // Rethrow a generic error message
   }
