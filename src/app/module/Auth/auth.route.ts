@@ -1,7 +1,5 @@
 import { Elysia } from 'elysia';
+import { AuthController } from './auth.controller';
 
 export const AuthRoutes = new Elysia()
-  .post('api/auth/login', (ctx) => {
-    // Login handler
-    return { message: 'Login successful!' };
-  });
+  .post('api/auth/login', AuthController.loginUser);
