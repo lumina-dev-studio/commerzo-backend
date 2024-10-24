@@ -16,22 +16,65 @@ datasource db {
 model User {
   id               String      @id @default(uuid())
   name             String
-  email            String       @unique
+  email            String      @unique
   password         String
   confirmPassword  String     
   address          String
   phoneNumber      String
   image            String?
-  role             Role         @default(User)
-  createdAt        DateTime?     @default(now())
-  updatedAt        DateTime?     @updatedAt
+  role             Role        @default(User)
+  createdAt        DateTime?   @default(now())
+  updatedAt        DateTime?   @updatedAt
+  products         Product[]   @relation("UserProducts")  // One-to-many relation to Product
 }
 
+model Product {
+  id                      String                    @id @default(uuid()) // UUID as primary key
+  userId                  String                    // Foreign key for User
+  collections             String
+  compareAtPrice          Float
+  cost                    Float
+  margin                  Float
+  price                   Float
+  profit                  Float
+  status                  String
+  tags                    String
+  tax                     Boolean
+  themeTemplate           String
+  title                   String
+  weight                  Float
+  weightSize              String
+  productMediaImages      ProductMediaImage[]       // One-to-many relationship
+  productVariants         ProductVariant[]          // One-to-many relationship
+  user                    User                      @relation("UserProducts", fields: [userId], references: [id], onDelete: Cascade)  // Relation back to User
+}
 
+model ProductMediaImage {
+  id          String  @id @default(uuid()) // UUID as primary key
+  imageUrl    String
+  productId   String
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
 
+model ProductVariant {
+  id                        String                         @id @default(uuid()) // UUID as primary key
+  optionName                String
+  productId                 String
+  product                   Product                        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productVariantOptionValues ProductVariantOptionValue[]    // One-to-many relationship
+}
+
+model ProductVariantOptionValue {
+  id              String              @id @default(uuid()) // UUID as primary key
+  value           String
+  price           Float
+  available       Int
+  imageUrl        String
+  productVariantId String
+  productVariant  ProductVariant       @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
+}
 
 enum Role {
- User
-Admin
- 
+  User
+  Admin
 }

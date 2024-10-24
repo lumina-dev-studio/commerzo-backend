@@ -1,6 +1,7 @@
 import { Elysia } from 'elysia';
 import { AuthRoutes } from '../module/Auth/auth.route';
 import { UsersRoutes } from '../module/Admin/User/users.route';
+import { ProductRoutes } from '../module/User/Product/product.route';
 
 // Create a new instance of Elysia for the router
 const router = new Elysia();
@@ -10,6 +11,9 @@ router.use(AuthRoutes);
 
 // Register UsersRoutes similarly
 router.use(UsersRoutes);
+
+// Register UsersRoutes 
+router.use(ProductRoutes);
 
 // Export the router
 export default router;
