@@ -65,14 +65,23 @@ model ProductVariant {
 }
 
 model ProductVariantOptionValue {
-  id              String              @id @default(uuid()) // UUID as primary key
-  value           String
-  price           Float
-  available       Int
-  imageUrl        String
+  id               String              @id @default(uuid()) // UUID as primary key
+  value            String
+  price            Float
+  available        Int
+  imageUrl         String
   productVariantId String
-  productVariant  ProductVariant       @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
+  productVariant   ProductVariant       @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
+} 
+
+
+model ProductCategory {
+  id              String  @id @default(uuid()) // UUID as primary key
+  categoryName    String
+  categoryImage   String
+ 
 }
+
 
 enum Role {
   User
