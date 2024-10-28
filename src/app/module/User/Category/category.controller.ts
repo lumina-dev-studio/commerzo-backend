@@ -12,11 +12,11 @@ import config from "../../../../config";
 import zodValidation from "../../../error/zodErrorHandler";
 import { CategoryServices } from "./category.service";
 import { CaregoryValidation } from "./category.validation";
-
+import { PrismaClient } from '@prisma/client';
 
 const CreateCategory =async({body,headers}:any) => {
   
- 
+  const prisma = new PrismaClient();
 
   const token = headers.authorization as string;
 
@@ -54,7 +54,18 @@ const CreateCategory =async({body,headers}:any) => {
     
     
   }
-  // body.userId=user.id 
+console.log(body)
+
+const isExist = await prisma.productCategory.findFirst({
+  where: {
+    categoryName: body?.categoryName
+  }
+});
+
+  if(isExist){
+    throw new Error(`${body?.categoryName}  already exist. Please try another one`);
+  }
+
   const result= await CategoryServices.CreateCategoryDB(body)
 
 

@@ -33,6 +33,7 @@ model Product {
   userId                  String                    // Foreign key for User
   collections             String
   compareAtPrice          Float
+  category                String
   cost                    Float
   margin                  Float
   price                   Float
@@ -77,7 +78,7 @@ model ProductVariantOptionValue {
 
 model ProductCategory {
   id              String  @id @default(uuid()) // UUID as primary key
-  categoryName    String
+  categoryName    String   
   categoryImage   String
  
 }

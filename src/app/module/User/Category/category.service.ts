@@ -7,7 +7,7 @@ const prisma = new PrismaClient(); // Create a Prisma client instance
 //  create Category
 const CreateCategoryDB = async (payload:  any) => {
 
- 
+
   try {
    
 
@@ -26,11 +26,13 @@ const CreateCategoryDB = async (payload:  any) => {
 const GetAllCategory = async () => {
  
   try {
-    const product = await prisma.product.findMany();
+    const product = await prisma.productCategory.findMany();
 
     if (!product) {
       throw new Error('Category not found for the provided user ID');
     }
+
+    console.log(product,'jj')
 
     return product;
   } catch (error:any) {

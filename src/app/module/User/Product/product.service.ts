@@ -4,6 +4,7 @@ import prismaErrorHandler from '../../../error/prismaErrorHandler';
 const prisma = new PrismaClient(); // Create a Prisma client instance
 
 const CreateProductDB = async (payload: any) => {
+  console.log(payload)
   try {
     const {
       userId,
@@ -21,7 +22,8 @@ const CreateProductDB = async (payload: any) => {
       weight,
       weightSize,
       mediaImage, // Array of images
-      variant // Array of product variants
+      variant,
+      category // Array of product variants
     } = payload;
 
     // Use Prisma transaction to ensure atomicity
@@ -31,6 +33,7 @@ const CreateProductDB = async (payload: any) => {
         data: {
           userId,
           collections,
+          category,
           compareAtPrice,
           cost,
           margin,
