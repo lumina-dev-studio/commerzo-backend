@@ -1,10 +1,9 @@
-// Example of UsersRoutes (users.route.ts)
-import { Elysia, error } from 'elysia';
-
+// Example of CategoryRoutes (category.route.ts)
+import { Elysia } from 'elysia';
 import { CategoryController } from './category.controller';
 
-
-
 export const CategoryRoutes = new Elysia()
-  .get('api/productCategory', CategoryController.GetAllCategory )
-  .post('api/productCategory',CategoryController.CreateCategory );
+  .get('api/productCategory', CategoryController.GetAllCategory)
+  .post('api/productCategory', CategoryController.CreateCategory)
+  .put('api/productCategory/:id', CategoryController.UpdateCategory)
+  .delete('api/productCategory/:id', CategoryController.DeleteCategory);

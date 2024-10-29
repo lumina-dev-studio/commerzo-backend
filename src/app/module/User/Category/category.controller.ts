@@ -79,7 +79,7 @@ return {
 
 
 
-//  all users
+//  all Category
 const GetAllCategory=async ({headers}:any ) => {
  
   const token = headers.authorization as string;
@@ -116,9 +116,85 @@ const GetAllCategory=async ({headers}:any ) => {
   };
 };
 
+// update Category
+const UpdateCategory=async ({headers,body,params }:any ) => {
+ 
+  const token = headers.authorization as string;
+
+  if (!token) {
+    throw new Error("Unauthorized Access");
+  }
+
+  const { email }:any = jwtHelpers.verifyToken(
+    token,
+    config.jwt.jwt_secret as string
+  );
+
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (!user) {
+    throw new Error("Unauthorized Access");
+  }
+  //   if (user.role!== "User"||"Admin") {
+  //   throw new Error("Unauthorized Access");
+  // }
+ 
+
+  const result = await CategoryServices.UpdateCategory(params?.id,body);
+
+
+  return {
+    statusCode: 203,
+    success: true,
+    message: "Category update successfully",
+    data: result,
+  };
+};
+
+// delete Category
+const DeleteCategory=async ({headers,params }:any ) => {
+ 
+  const token = headers.authorization as string;
+
+  if (!token) {
+    throw new Error("Unauthorized Access");
+  }
+
+  const { email }:any = jwtHelpers.verifyToken(
+    token,
+    config.jwt.jwt_secret as string
+  );
+
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (!user) {
+    throw new Error("Unauthorized Access");
+  }
+  //   if (user.role!== "User"||"Admin") {
+  //   throw new Error("Unauthorized Access");
+  // }
+ 
+
+  const result = await CategoryServices.DeleteCategory(params?.id);
+
+
+  return {
+    statusCode: 204,
+    success: true,
+    message: "Category deleted successfully",
+    data: result,
+  };
+};
+
 
 export const CategoryController = {
  
   CreateCategory,
-  GetAllCategory
+  GetAllCategory,
+  DeleteCategory,
+  UpdateCategory
 };
