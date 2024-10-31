@@ -116,8 +116,9 @@ const GetAllCategory=async ({headers}:any ) => {
   };
 };
 
-// update Category
-const UpdateCategory=async ({headers,body,params }:any ) => {
+
+//  single Category
+const GetSingleCategory=async ({headers,params}:any ) => {
  
   const token = headers.authorization as string;
 
@@ -140,6 +141,58 @@ const UpdateCategory=async ({headers,body,params }:any ) => {
   //   if (user.role!== "User"||"Admin") {
   //   throw new Error("Unauthorized Access");
   // }
+ 
+
+  const result = await CategoryServices.GetSingleCategory(params?.id);
+
+
+  return {
+    statusCode: 200,
+    success: true,
+    message: "Single Category retrieved successfully",
+    data: result,
+  };
+};
+
+// update Category
+const UpdateCategory=async ({headers,body,params }:any ) => {
+
+  console.log(body,'body')
+ 
+  const token = headers.authorization as string;
+
+  if (!token) {
+    throw new Error("Unauthorized Access");
+  }
+
+  const { email }:any = jwtHelpers.verifyToken(
+    token,
+    config.jwt.jwt_secret as string
+  );
+
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (!user) {
+    throw new Error("Unauthorized Access");
+  }
+  //   if (user.role!== "User"||"Admin") {
+  //   throw new Error("Unauthorized Access");
+  // }
+
+
+  const isExist = await prisma.productCategory.findFirst({
+    where: {
+      categoryName: body?.categoryName
+    }
+  });
+  
+    if(isExist && isExist.id!==params?.id){
+      throw new Error(`${body?.categoryName}  already exist. Please try another one`);
+    }
+  
+  
  
 
   const result = await CategoryServices.UpdateCategory(params?.id,body);
@@ -196,5 +249,6 @@ export const CategoryController = {
   CreateCategory,
   GetAllCategory,
   DeleteCategory,
-  UpdateCategory
+  UpdateCategory,
+  GetSingleCategory
 };

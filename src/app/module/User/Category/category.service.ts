@@ -40,8 +40,32 @@ const GetAllCategory = async () => {
   }
 };
 
+
+//  get single Category
+const GetSingleCategory = async (id:string) => {
+ 
+  try {
+    const product = await prisma.productCategory.findFirst({
+
+      where: {id: id}
+    });
+
+    if (!product) {
+      throw new Error('Category not found for the provided user ID');
+    }
+
+    console.log(product,'jj')
+
+    return product;
+  } catch (error:any) {
+    throw new Error(`Error fetching Category: ${error?.message}`);
+  }
+};
+
 // Update Category
 const UpdateCategory = async (id: string, payload: any) => {
+
+  console.log(id, payload)
   try {
     const product = await prisma.productCategory.update({
       where: {
@@ -90,6 +114,7 @@ export const CategoryServices = {
   GetAllCategory,
   CreateCategoryDB,
   UpdateCategory,
-  DeleteCategory
+  DeleteCategory,
+  GetSingleCategory
 
 };
