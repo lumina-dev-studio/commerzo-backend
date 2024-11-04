@@ -22,6 +22,9 @@ model User {
   address          String
   phoneNumber      String
   image            String?
+  facebook         String?
+  tiktok           String?
+  instagram        String?
   role             Role        @default(User)
   createdAt        DateTime?   @default(now())
   updatedAt        DateTime?   @updatedAt
