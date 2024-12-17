@@ -86,6 +86,22 @@ model ProductCategory {
  
 }
 
+model NavigationItem {
+  id        Int              @id @default(autoincrement())
+  name      String
+  path      String
+  icon      String?          // Icon or emoji field
+  parentId  Int?             // Parent for nesting
+  parent    NavigationItem?  @relation("ParentRelation", fields: [parentId], references: [id])
+  children  NavigationItem[] @relation("ParentRelation")
+}
+model Logo {
+  id        Int              @id @default(autoincrement())
+  logoUrl   String
+ 
+}
+
+
 
 enum Role {
   User

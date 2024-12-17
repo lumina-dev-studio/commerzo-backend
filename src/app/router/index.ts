@@ -4,6 +4,7 @@ import { UsersRoutes } from '../module/Admin/User/users.route';
 import { ProductRoutes } from '../module/User/Product/product.route';
 import { CategoryRoutes } from '../module/User/Category/category.route'
 import { SettingRoutes } from '../module/Setting/setting.route'
+import { StoreThemeRoutes } from '../module/Theme/StoreTheme/storeTheme.route'
 
 // Create a new instance of Elysia for the router
 const router = new Elysia();
@@ -20,6 +21,8 @@ router.use(ProductRoutes);
 router.use(CategoryRoutes);
 
 router.use(SettingRoutes);
+
+router.use(StoreThemeRoutes);
 
 // Export the router
 export default router;
