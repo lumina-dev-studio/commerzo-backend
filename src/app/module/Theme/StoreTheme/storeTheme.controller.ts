@@ -230,10 +230,244 @@ const getLogoDB =async({body,headers}:any) => {
 return {
     statusCode: 201,
     success: true,
-    message: "Navition create successfully",
+    message: "Logo get successfully",
     data: result,
   };
 };
+
+
+
+//  craete number
+const CreateNumber =async({body,headers}:any) => {
+
+ 
+  
+  const prisma = new PrismaClient();
+
+  const token = headers.authorization as string;
+
+ 
+
+  if (!token) {
+    throw new Error("Unauthorized Access");
+  }
+
+  const { email }:any = jwtHelpers.verifyToken(
+    token,
+    config.jwt.jwt_secret as string
+  );
+
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (!user) {
+    throw new Error("Unauthorized Access");
+  }
+
+//   if (user.role!== "User") {
+//     throw new Error("Unauthorized Access");
+//   }
+
+  
+
+  // const zod= await zodValidation(CaregoryValidation.CreateCategoryValidation,body)
+           
+//   if(zod.success===false){
+   
+
+//     throw new Error(zod?.error?.message)
+    
+    
+//   }
+// console.log(body)
+
+
+  const result= await StoreThemeServices.CreateNumberDB(body)
+
+
+return {
+    statusCode: 201,
+    success: true,
+    message: "Number create successfully",
+    data: result,
+  };
+};
+
+
+
+//  get Number
+const getNumberDB =async({body,headers}:any) => {
+  
+  
+  const prisma = new PrismaClient();
+
+  const token = headers.authorization as string;
+
+ 
+
+  if (!token) {
+    throw new Error("Unauthorized Access");
+  }
+
+  const { email }:any = jwtHelpers.verifyToken(
+    token,
+    config.jwt.jwt_secret as string
+  );
+
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (!user) {
+    throw new Error("Unauthorized Access");
+  }
+
+//   if (user.role!== "User") {
+//     throw new Error("Unauthorized Access");
+//   }
+
+  
+
+  // const zod= await zodValidation(CaregoryValidation.CreateCategoryValidation,body)
+           
+//   if(zod.success===false){
+   
+
+//     throw new Error(zod?.error?.message)
+    
+    
+//   }
+// console.log(body)
+
+
+  const result= await StoreThemeServices.getNumberDB()
+
+
+return {
+    statusCode: 201,
+    success: true,
+    message: "number get successfully",
+    data: result,
+  };
+};
+
+//  craete social
+const createSocial =async({body,headers}:any) => {
+
+ 
+  
+  const prisma = new PrismaClient();
+
+  const token = headers.authorization as string;
+
+ 
+
+  if (!token) {
+    throw new Error("Unauthorized Access");
+  }
+
+  const { email }:any = jwtHelpers.verifyToken(
+    token,
+    config.jwt.jwt_secret as string
+  );
+
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (!user) {
+    throw new Error("Unauthorized Access");
+  }
+
+//   if (user.role!== "User") {
+//     throw new Error("Unauthorized Access");
+//   }
+
+  
+
+  // const zod= await zodValidation(CaregoryValidation.CreateCategoryValidation,body)
+           
+//   if(zod.success===false){
+   
+
+//     throw new Error(zod?.error?.message)
+    
+    
+//   }
+// console.log(body)
+
+
+  const result= await StoreThemeServices.CreateSocialDB(body)
+
+
+return {
+    statusCode: 201,
+    success: true,
+    message: "Social create successfully",
+    data: result,
+  };
+};
+
+
+
+//  get Social
+const getSocialDB =async({body,headers}:any) => {
+  
+  
+  const prisma = new PrismaClient();
+
+  const token = headers.authorization as string;
+
+ 
+
+  if (!token) {
+    throw new Error("Unauthorized Access");
+  }
+
+  const { email }:any = jwtHelpers.verifyToken(
+    token,
+    config.jwt.jwt_secret as string
+  );
+
+  const user = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (!user) {
+    throw new Error("Unauthorized Access");
+  }
+
+//   if (user.role!== "User") {
+//     throw new Error("Unauthorized Access");
+//   }
+
+  
+
+  // const zod= await zodValidation(CaregoryValidation.CreateCategoryValidation,body)
+           
+//   if(zod.success===false){
+   
+
+//     throw new Error(zod?.error?.message)
+    
+    
+//   }
+// console.log(body)
+
+
+  const result= await StoreThemeServices.getSocialAccountDB()
+
+
+return {
+    statusCode: 201,
+    success: true,
+    message: "social get successfully",
+    data: result,
+  };
+};
+
+
 
 
 
@@ -241,6 +475,10 @@ export const StoreThemeRoutesController = {
   CreateNavigation,
   getNavigationDB,
   CreateLogo,
-  getLogoDB
+  getLogoDB,
+  CreateNumber,
+  getNumberDB,
+  createSocial,
+  getSocialDB
 
 };
