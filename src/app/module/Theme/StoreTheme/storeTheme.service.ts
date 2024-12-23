@@ -49,28 +49,32 @@ const getNavigationDB = async () => {
 };
 
 // crrate logo
-const CreateLogoDB = async (payload:  any) => {
-  console.log('hekko')
+const CreateLogoDB = async (payload: any) => {
+  console.log(payload, 'hellow');
 
   try {
-   
-
-    const newItem = await prisma.logo.create({
-      data:payload
+    // Update the logo record
+    const updatedItem = await prisma.logo.update({
+      where: { id: payload?.id }, // Ensure `id` exists in the payload
+      data: { logoUrl: payload?.logoUrl }, // Update the logoUrl field
     });
-    return newItem;
 
+    return updatedItem;
   } catch (error) {
-    const prismaError = prismaErrorHandler(error);
-    throw new Error(prismaError?.message || 'Failed to create logo.');
+    const prismaError = prismaErrorHandler(error); // Assuming prismaErrorHandler is defined
+    throw new Error(prismaError?.message || 'Failed to update logo.');
   }
 };
 
+
 //  get Logo
-const getLogoDB = async () => {
+const getLogoDB = async (id:number) => {
  
+  console.log(id)
   try {
-    const product = await prisma.logo.findMany();
+    const product = await prisma.logo.findFirst({where:{userId:id}});
+
+    console.log(product)
 
     if (!product) {
       throw new Error('Category not found for the logo user ID');
@@ -88,12 +92,13 @@ const getLogoDB = async () => {
 //  create number
 const CreateNumberDB = async (payload:  any) => {
 
-  console.log(payload,'eeee')
+  console.log(payload,'www')
   try {
    
 
-    const newItem = await prisma.number.create({
-      data:payload
+    const newItem = await prisma.number.update({
+      where: { id: payload?.id }, // Ensure `id` exists in the payload
+      data: { number: payload?.number }, // Update the logoUrl field
     });
     return newItem;
 
@@ -105,13 +110,13 @@ const CreateNumberDB = async (payload:  any) => {
 
 
 //  get Number
-const getNumberDB = async () => {
+const getNumberDB = async (id:any) => {
  
   try {
-    const product = await prisma.number.findMany();
+    const product = await prisma.number.findFirst({where:{userId:id}});
 
     if (!product) {
-      throw new Error('Category not found for the number user ID');
+      throw new Error('Number not found for the number user ID');
     }
 
     console.log(product,'jj')
@@ -124,13 +129,19 @@ const getNumberDB = async () => {
 
 
 //  create SocialAccount
-const CreateSocialDB = async (payload:  any) => {
+const CreateSocialDB = async (payload:  any,id:any) => {
 
   console.log(payload, 'Received payload to create social account');
   try {
    
 
+    
+
+    payload.userId=id
+
+    console.log(payload)
     const newItem = await prisma.socialAccount.create({
+    
       data:payload
     });
     return newItem;

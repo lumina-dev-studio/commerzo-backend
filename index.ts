@@ -6,7 +6,7 @@ import router from './src/app/router'; // Adjust this path according to your act
 
 const app = new Elysia()
   .use(cors({ // Enable CORS
-    origin: ["http://localhost:3000", "https://sass-project-dashboard-client-side.vercel.app"], // Allow all origins (adjust as necessary)
+    origin: ["http://localhost:3000","http://localhost:3001", "https://sass-project-dashboard-client-side.vercel.app"], // Allow all origins (adjust as necessary)
     credentials: true, // Allow credentials
   }))
   .get('/', () => {

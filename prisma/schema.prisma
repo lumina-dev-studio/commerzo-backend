@@ -29,6 +29,9 @@ model User {
   createdAt        DateTime?   @default(now())
   updatedAt        DateTime?   @updatedAt
   products         Product[]   @relation("UserProducts")  // One-to-many relation to Product
+   logos           Logo[]            @relation("UserLogos")
+  numbers          Number[]          @relation("UserNumbers")
+  socialAccounts   SocialAccount[]   @relation("UserSocialAccounts")
 }
 
 model Product {
@@ -96,26 +99,28 @@ model NavigationItem {
   children  NavigationItem[] @relation("ParentRelation")
 }
 model Logo {
-  id        Int              @id @default(autoincrement())
-  logoUrl   String
- 
+  id      Int   @id @default(autoincrement())
+  logoUrl String?
+  userId  String
+  user    User  @relation("UserLogos", fields: [userId], references: [id], onDelete: Cascade)
 }
+
 model Number {
-  id        Int              @id @default(autoincrement())
-  number    String
- 
+  id      Int   @id @default(autoincrement())
+  number  String?
+  userId  String
+  user    User  @relation("UserNumbers", fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model SocialAccount {
-  id        Int      @id @default(autoincrement())
-  account   String   @unique
-  emoji     String // Stores emoji or any text associated with the social account
+  id        Int     @id @default(autoincrement())
+  account   String?  
+  emoji     String?  // Stores emoji or any text associated with the social account
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
- 
+  userId    String
+  user      User     @relation("UserSocialAccounts", fields: [userId], references: [id], onDelete: Cascade)
 }
-
 
 
 

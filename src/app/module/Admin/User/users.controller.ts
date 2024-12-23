@@ -54,6 +54,8 @@ const CreateUser =async({body,headers}:any) => {
       //   data: zod?.error,
       // };
   }
+
+ 
   const result= await UsersServices.CreateUsersDB(body)
 
 
@@ -64,6 +66,9 @@ return {
     data: result,
   };
 };
+
+
+
 //  all users
 const GeTAllUsers =async ({body,headers,response}:any ) => {
   const token = headers.authorization as string;

@@ -179,9 +179,12 @@ return {
   };
 };
 
+
+
+
 //  get logo
 const getLogoDB =async({body,headers}:any) => {
-  console.log('hello')
+
   
   const prisma = new PrismaClient();
 
@@ -193,7 +196,7 @@ const getLogoDB =async({body,headers}:any) => {
     throw new Error("Unauthorized Access");
   }
 
-  const { email }:any = jwtHelpers.verifyToken(
+  const { email,id }:any = jwtHelpers.verifyToken(
     token,
     config.jwt.jwt_secret as string
   );
@@ -224,7 +227,7 @@ const getLogoDB =async({body,headers}:any) => {
 // console.log(body)
 
 
-  const result= await StoreThemeServices.getLogoDB()
+  const result= await StoreThemeServices.getLogoDB(id)
 
 
 return {
@@ -310,7 +313,7 @@ const getNumberDB =async({body,headers}:any) => {
     throw new Error("Unauthorized Access");
   }
 
-  const { email }:any = jwtHelpers.verifyToken(
+  const { email ,id}:any = jwtHelpers.verifyToken(
     token,
     config.jwt.jwt_secret as string
   );
@@ -341,7 +344,7 @@ const getNumberDB =async({body,headers}:any) => {
 // console.log(body)
 
 
-  const result= await StoreThemeServices.getNumberDB()
+  const result= await StoreThemeServices.getNumberDB(id)
 
 
 return {
@@ -367,7 +370,7 @@ const createSocial =async({body,headers}:any) => {
     throw new Error("Unauthorized Access");
   }
 
-  const { email }:any = jwtHelpers.verifyToken(
+  const { email,id }:any = jwtHelpers.verifyToken(
     token,
     config.jwt.jwt_secret as string
   );
@@ -398,7 +401,7 @@ const createSocial =async({body,headers}:any) => {
 // console.log(body)
 
 
-  const result= await StoreThemeServices.CreateSocialDB(body)
+  const result= await StoreThemeServices.CreateSocialDB(body,id)
 
 
 return {
