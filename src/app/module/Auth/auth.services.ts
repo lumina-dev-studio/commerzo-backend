@@ -6,6 +6,8 @@ import bcrypt from "bcrypt";
 
 // login
 const loginUserDB = async (payload: any) => {
+
+  
     const userData = await prisma.user.findUnique({
       where: {
         email: payload?.email,

@@ -68,7 +68,7 @@ const CreateLogoDB = async (payload: any) => {
 
 
 //  get Logo
-const getLogoDB = async (id:number) => {
+const getLogoDB = async (id:any) => {
  
   console.log(id)
   try {

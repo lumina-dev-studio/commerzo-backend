@@ -73,6 +73,8 @@ return {
 const GeTAllUsers =async ({body,headers,response}:any ) => {
   const token = headers.authorization as string;
 
+
+
   if (!token) {
     throw new Error("Unauthorized Access");
   }

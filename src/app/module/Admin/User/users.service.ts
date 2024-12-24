@@ -55,9 +55,10 @@ const CreateUsersDB = async (payload: any) => {
 
 const GetAllUsersDB = async () => {
 
-  
+ 
   try {
     const result = await prisma.user.findMany(); // Fetch all users from the database
+    
     return result; // Return the result if successful
   } catch (error) {
     // Handle specific Prisma errors or log the error
