@@ -23,7 +23,8 @@ const CreateProductDB = async (payload: any) => {
       weightSize,
       mediaImage, // Array of images
       variant,
-      category // Array of product variants
+      category ,
+      description// Array of product variants
     } = payload;
 
     // Use Prisma transaction to ensure atomicity
@@ -46,6 +47,7 @@ const CreateProductDB = async (payload: any) => {
           title,
           weight: parseFloat(weight), // Convert weight to float if it's in string format
           weightSize,
+          description
         }
       });
 
@@ -124,8 +126,72 @@ const GetAllProduct = async (userId: string) => {
     throw new Error(`Error fetching product: ${error?.message}`);
   }
 };
+
+
+//  get user
+const GetAllProductForUser = async () => {
+  try {
+    // Fetch all products with related data
+    const products = await prisma.product.findMany(
+      {
+      include: {
+        user: true, // Include the related user data
+        productMediaImages: true, // Include related product images
+        productVariants: {
+          include: {
+            productVariantOptionValues: true, // Include the variants' option values
+          },
+        },
+      },
+    }
+  );
+
+
+
+    // Return the fetched products
+    return products;
+  } catch (error: any) {
+    // Handle and throw an error if something goes wrong
+    throw new Error(`Error fetching products: ${error.message}`);
+  }
+};
+
+
+//  single product
+const GetSingleProduct = async (id: string) => {
+ 
+  try {
+    const product = await prisma.product.findFirst({
+      where: {
+        id: id, // Filter by the provided user ID
+      },
+      include: {
+        user: true, // Include the related user data
+        productMediaImages: true, // Include related product images
+        productVariants: {
+          include: {
+            productVariantOptionValues: true, // Include the variants' option values
+          },
+        },
+      },
+    });
+
+    if (!product) {
+      throw new Error('Product not found for the provided user ID');
+    }
+
+    return product;
+  } catch (error:any) {
+    throw new Error(`Error fetching product: ${error?.message}`);
+  }
+};
+
+
+
 export const ProductServices = {
   CreateProductDB,
-  GetAllProduct
+  GetAllProduct,
+  GetAllProductForUser,
+  GetSingleProduct
 
 };

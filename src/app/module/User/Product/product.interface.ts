@@ -1,6 +1,7 @@
 export interface TProduct {
     userId: string;
     collections: string;
+    description: string;
     category: string;
     compareAtPrice: number;
     cost: number;

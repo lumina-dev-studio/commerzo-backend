@@ -64,6 +64,7 @@ model Product {
   title                   String
   weight                  Float
   weightSize              String
+  description             String
   productMediaImages      ProductMediaImage[]       // One-to-many relationship
   productVariants         ProductVariant[]          // One-to-many relationship
   user                    User                      @relation("UserProducts", fields: [userId], references: [id], onDelete: Cascade)  // Relation back to User

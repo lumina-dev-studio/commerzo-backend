@@ -18,6 +18,7 @@ const ProductVariantSchema = z.object({
 const CreateProductValidation = z.object({
  
   collections: z.string().nonempty({ message: "Collections cannot be empty." }),
+  description: z.string().nonempty({ message: "description cannot be empty." }),
   category: z.string().nonempty({ message: "category cannot be empty." }),
   compareAtPrice: z.number().min(0, { message: "Compare at price must be a non-negative number." }),
   cost: z.number().min(0, { message: "Cost must be a non-negative number." }),
