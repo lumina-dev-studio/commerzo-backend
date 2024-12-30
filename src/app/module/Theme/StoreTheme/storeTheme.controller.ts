@@ -472,6 +472,49 @@ return {
 
 
 
+//  craete review
+const createReviewDB =async({body}:any) => {
+  
+ 
+  
+
+
+
+  const result= await StoreThemeServices.createProductReviewDB(body)
+
+
+return {
+    statusCode: 200,
+    success: true,
+    message: "review created successfully",
+    data: result,
+  };
+};
+
+
+
+//  find review
+const getReviewDB =async({params}:any) => {
+  
+  const {id}=params;
+  
+
+
+
+
+  const result= await StoreThemeServices.getProductReviewsDB(id)
+
+
+return {
+    statusCode: 200,
+    success: true,
+    message: "review find successfully",
+    data: result,
+  };
+};
+
+
+
 
 
 export const StoreThemeRoutesController = {
@@ -482,6 +525,8 @@ export const StoreThemeRoutesController = {
   CreateNumber,
   getNumberDB,
   createSocial,
-  getSocialDB
+  getSocialDB,
+  createReviewDB,
+  getReviewDB
 
 };

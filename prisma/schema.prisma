@@ -32,6 +32,7 @@ model User {
    logos           Logo[]            @relation("UserLogos")
   numbers          Number[]          @relation("UserNumbers")
   socialAccounts   SocialAccount[]   @relation("UserSocialAccounts")
+  
 }
 
 
@@ -67,7 +68,8 @@ model Product {
   description             String
   productMediaImages      ProductMediaImage[]       // One-to-many relationship
   productVariants         ProductVariant[]          // One-to-many relationship
-  user                    User                      @relation("UserProducts", fields: [userId], references: [id], onDelete: Cascade)  // Relation back to User
+  reviews                 Review[]                  @relation("ProductReviews") // One-to-many relation with Review
+  user                    User                      @relation("UserProducts", fields: [userId], references: [id], onDelete: Cascade) // Relation back to User
 }
 
 model ProductMediaImage {
@@ -136,7 +138,26 @@ model SocialAccount {
   user      User     @relation("UserSocialAccounts", fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Review {
+  id             String   @id @default(uuid()) // Primary key
 
+  productId      String   // Foreign key for Product
+  rating         Int      // Rating given by the user (e.g., 1-5)
+  deliverySpeed  Int      // Delivery speed rating (e.g., 1-5)
+  durability     Int      // Durability rating (e.g., 1-5)
+  valueForMoney  Int      // Value for money rating (e.g., 1-5)
+  pros           String?  // Pros of the product
+  cons           String?  // Cons of the product
+  review         String   // Review text
+  termsAccepted  Boolean  // Whether the user accepted terms
+  email          String   // User's email at the time of the review
+  name           String   // User's name at the time of the review
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  product        Product  @relation("ProductReviews", fields: [productId], references: [id], onDelete: Cascade) // Relation to Product
+ 
+}
 
 
 enum Role {

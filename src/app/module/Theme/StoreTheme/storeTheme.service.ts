@@ -171,6 +171,32 @@ const getSocialAccountDB = async () => {
   }
 };
 
+//  create Review
+const createProductReviewDB = async (payload:any) => {
+
+  
+ 
+  try {
+    const result = await prisma.review.create({data:payload});
+
+
+
+
+    return result;
+  } catch (error:any) {
+    throw new Error(`Error fetching lumber: ${error?.message}`);
+  }
+};
+
+//  find Review
+const getProductReviewsDB = async (productId:string) => {
+  const result = await prisma.review.findMany({
+    where: { productId },
+    
+  });
+  return result;
+};
+
 export const StoreThemeServices = {
   
   CreateNavigationDB,
@@ -180,8 +206,9 @@ export const StoreThemeServices = {
   getNumberDB,
   CreateNumberDB,
   CreateSocialDB,
-  getSocialAccountDB
-
+  getSocialAccountDB,
+  createProductReviewDB,
+  getProductReviewsDB
   
 
 };

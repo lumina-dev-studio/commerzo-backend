@@ -12,4 +12,6 @@ export const StoreThemeRoutes = new Elysia()
   .post('api/theme/storeTheme/number',StoreThemeRoutesController.CreateNumber )
   .get('api/theme/storeTheme/social',StoreThemeRoutesController.getSocialDB)
   .post('api/theme/storeTheme/social',StoreThemeRoutesController.createSocial )
+  .get('api/theme/storeTheme/review/:id',StoreThemeRoutesController.getReviewDB )
+  .post('api/theme/storeTheme/review',StoreThemeRoutesController.createReviewDB )
   
