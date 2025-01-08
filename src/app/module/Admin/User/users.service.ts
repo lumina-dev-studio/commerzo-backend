@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt'; // Make sure to import bcrypt
-import { PrismaClient } from '@prisma/client'; // Import PrismaClient
+import bcrypt from 'bcrypt';
+import { PrismaClient } from '@prisma/client';
 import prismaErrorHandler from '../../../error/prismaErrorHandler';
 
-const prisma = new PrismaClient(); // Create a Prisma client instance
+const prisma = new PrismaClient();
 
 
 
